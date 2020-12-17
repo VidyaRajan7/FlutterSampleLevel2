@@ -18,13 +18,9 @@ class _LoginUIState extends State<LoginUI> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.transparent,
      body: (Stack(
        children: <Widget>[
-         new Container(
-           decoration: new BoxDecoration(
-             image: new DecorationImage(image: new AssetImage('assets/background.png'), fit: BoxFit.cover)
-           ),
-         ),
          new Container(
            child: CommonWidgets(title: 'Login',),
          ),
