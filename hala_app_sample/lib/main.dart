@@ -42,7 +42,7 @@ class InitialPage extends StatelessWidget {
     return Container(
       decoration: new BoxDecoration(
           image: new DecorationImage(image:
-          new AssetImage('assets/background.png'), fit: BoxFit.cover)
+          new AssetImage('assets/images/background.png'), fit: BoxFit.cover)
       ),
       child: Scaffold(
         backgroundColor: Colors.transparent,

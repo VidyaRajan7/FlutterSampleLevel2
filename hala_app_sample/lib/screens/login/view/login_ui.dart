@@ -51,9 +51,9 @@ class _LoginUIState extends State<LoginUI> {
       height: 80,
     ));
     loginWidget.add(getLabelWidget('User Name'));
-    loginWidget.add(getTextFieldWidget('assets/icon_user.png', true));
+    loginWidget.add(getTextFieldWidget('assets/images/icon_user.png', true));
     loginWidget.add(getLabelWidget('Password'));
-    loginWidget.add(getTextFieldWidget('assets/icon_password.png', false));
+    loginWidget.add(getTextFieldWidget('assets/images/icon_password.png', false));
     loginWidget.add(Column(
       children: <Widget>[
         Container(

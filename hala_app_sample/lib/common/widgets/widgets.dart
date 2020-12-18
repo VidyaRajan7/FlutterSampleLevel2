@@ -20,7 +20,7 @@ class CommonWidgets extends StatelessWidget {
             height: 60,
             child: FlatButton(
               padding: EdgeInsets.all(10),
-              child: Image(image: new AssetImage('assets/icon_dots_vertical.png'),),
+              child: Image(image: new AssetImage('assets/images/icon_dots_vertical.png'),),
               onPressed: ()=>{},
             )
           ),
