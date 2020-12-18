@@ -1,4 +1,6 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:hala_app_sample/common/widgets/widgets.dart';
 
 class LoginUI extends StatefulWidget {
@@ -16,24 +18,28 @@ class _LoginUIState extends State<LoginUI> {
   bool passwordError = false;
 
   @override
+  void initState() {
+    super.initState();
+       SystemChrome.setPreferredOrientations([
+         DeviceOrientation.portraitDown,
+         DeviceOrientation.portraitUp
+       ]) ;
+  }
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.transparent,
      body: (Stack(
        children: <Widget>[
-         new Container(
-           decoration: new BoxDecoration(
-             image: new DecorationImage(image: new AssetImage('assets/background.png'), fit: BoxFit.cover)
-           ),
-         ),
-         new Container(
-           child: CommonWidgets(title: 'Login',),
-         ),
          Center(
            child: ListView(
              shrinkWrap: true,
              children: getLoginWidget(),
            ),
-         )
+         ),
+         new Container(
+           child: CommonWidgets(title: 'Login',),
+         ),
        ],
      )),
     );
@@ -41,24 +47,28 @@ class _LoginUIState extends State<LoginUI> {
 
   List<Widget> getLoginWidget() {
     List<Widget> loginWidget = new List();
-    Container co1 = new Container(
-      decoration: new BoxDecoration(
-        image: new DecorationImage(image: new AssetImage('assets/background.png'), fit: BoxFit.cover)
-      ),
-    );
-    loginWidget.add(co1);
-
-    loginWidget.add(
-      DecoratedBox(
-        decoration: new BoxDecoration(
-            image: new DecorationImage(image: new AssetImage('assets/background.png'), fit: BoxFit.cover)
-        ),
-      )
-    );
+    loginWidget.add(Container(
+      height: 80,
+    ));
     loginWidget.add(getLabelWidget('User Name'));
     loginWidget.add(getTextFieldWidget('assets/icon_user.png', true));
     loginWidget.add(getLabelWidget('Password'));
     loginWidget.add(getTextFieldWidget('assets/icon_password.png', false));
+    loginWidget.add(Column(
+      children: <Widget>[
+        Container(
+          margin: EdgeInsets.fromLTRB(0, 20, 0, 0),
+          width: (MediaQuery.of(context).size.width) - 30,
+          child: GestureDetector(
+            child: Text('Create an account',
+              style: TextStyle(
+                  fontSize: 15, fontWeight: FontWeight.w600,
+              color: const Color(0xffF8C045)),),
+            onTap: ()=>{},
+          ),
+        )
+      ],
+    ));
     Column c1 = new Column(
       children: <Widget>[
         Container(
@@ -69,7 +79,7 @@ class _LoginUIState extends State<LoginUI> {
             child: Text('Login',
             style: TextStyle(color: Colors.white, fontSize: 21),
             ),
-            color: Colors.blue,
+            color: const Color(0xffF8C045),
             onPressed: () => {},
 
           ),
