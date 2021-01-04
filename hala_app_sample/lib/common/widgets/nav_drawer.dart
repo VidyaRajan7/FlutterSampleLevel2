@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hala_app_sample/common/app_constants_or_strings/strings_or_constants.dart';
 import 'package:hala_app_sample/localization/app_localizations.dart';
+import 'package:hala_app_sample/screens/map/view/map_screen.dart';
 import 'package:hala_app_sample/screens/settings/settings_view/settings_ui.dart';
 class NavDrawer extends StatelessWidget {
 
@@ -32,6 +33,12 @@ class NavDrawer extends StatelessWidget {
                 loadScreen(context, 'Settings')
               },
             ),
+            ListTile(
+              title: Text(AppLocalizations.of(context).translate('Map')),
+              onTap: () => {
+                loadScreen(context, 'Map')
+              },
+            ),
           ],
         ),
       );
@@ -40,7 +47,8 @@ class NavDrawer extends StatelessWidget {
   void loadScreen(context, String title) {
     if (title == 'Settings') {
       Navigator.push(context, MaterialPageRoute(builder: (context) => SettingsUI()));
-    } else {
+    } else if (title == 'Map') {
+      Navigator.push(context, MaterialPageRoute(builder: (context) => MapSample()));
     }
   }
 }
