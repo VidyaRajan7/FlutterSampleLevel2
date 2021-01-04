@@ -1,9 +1,17 @@
+
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
+import 'package:hala_app_sample/common/widgets/nav_drawer.dart';
+import 'package:hala_app_sample/screens/login/view/login_ui.dart';
+import 'package:hala_app_sample/screens/settings/settings_view/settings_ui.dart';
 
 class CommonWidgets extends StatelessWidget {
 
-  String title;
-  CommonWidgets({this.title});
+  final String title;
+  final String imgPath;
+  GlobalKey<ScaffoldState> scaffoldKey = new GlobalKey<ScaffoldState>();
+  CommonWidgets({this.title, this.imgPath, this.scaffoldKey});
 
   @override
   Widget build(BuildContext context) {
@@ -20,8 +28,8 @@ class CommonWidgets extends StatelessWidget {
             height: 60,
             child: FlatButton(
               padding: EdgeInsets.all(10),
-              child: Image(image: new AssetImage('assets/images/icon_dots_vertical.png'),),
-              onPressed: ()=>{},
+              child: Image(image: new AssetImage(this.imgPath),),
+              onPressed: ()=>{loadSettingsScreen(context, this.title)},
             )
           ),
           
@@ -38,5 +46,13 @@ class CommonWidgets extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  void loadSettingsScreen(context, String title) {
+    if (title == 'Login') {
+      scaffoldKey.currentState.openDrawer();
+    } else {
+      Navigator.pop(context);
+    }
   }
 }

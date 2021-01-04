@@ -1,11 +1,52 @@
 import 'package:flutter/material.dart';
 import 'package:hala_app_sample/screens/login/view/login_ui.dart';
+//For Localizations
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:provider/provider.dart';
+import 'localization/app_localizations.dart';
+import 'localization/app_language.dart';
 
-void main() {
-  runApp(MyApp());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized(); //  if you are awaiting on main() method, call this first
+  AppLanguage appLanguage = AppLanguage();
+  await appLanguage.fetchLocale();
+  runApp(MyApp(
+    appLanguage: appLanguage,
+  ));
 }
-
+/*
 class MyApp extends StatelessWidget {
+  final AppLanguage appLanguage;
+
+  MyApp({this.appLanguage});
+
+  @override
+  Widget build(BuildContext context) {
+    return ChangeNotifierProvider<AppLanguage>(
+      builder: (_) => appLanguage,
+      child: Consumer<AppLanguage>(builder: (context, model, child) {
+        return MaterialApp(
+          locale: model.appLocal,
+          supportedLocales: [
+            Locale('en', 'US'),
+            Locale('ar', ''),
+          ],
+          localizationsDelegates: [
+            AppLocalizations.delegate,
+            GlobalMaterialLocalizations.delegate,
+            GlobalWidgetsLocalizations.delegate,
+          ],
+
+          home: AppLang(),
+        );
+      }),
+    );
+  }
+}
+*/
+class MyApp extends StatelessWidget {
+  final AppLanguage appLanguage;
+  MyApp({this.appLanguage});
   // This widget is the root of your application.
   Map<int, Color> color =
   {
@@ -24,14 +65,30 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-      ),
-      home: InitialPage(),
+    return ChangeNotifierProvider<AppLanguage>(
+      create: (_) => appLanguage,
+      child: Consumer<AppLanguage>(builder: (context, model, child) {
+        return MaterialApp(
+          locale: model.appLocal,
+          supportedLocales: [
+            Locale('en', 'US'),
+            Locale('ar', '')
+          ],
+          localizationsDelegates: [
+            AppLocalizations.delegate,
+            GlobalMaterialLocalizations.delegate,
+            GlobalWidgetsLocalizations.delegate
+          ],
+          title: 'Demo',
+          theme: ThemeData(
+            primarySwatch: Colors.blue,
+            visualDensity: VisualDensity.adaptivePlatformDensity,
+          ),
+          home: InitialPage(),
+        );
+      },),
     );
+
   }
 }
 
@@ -47,6 +104,47 @@ class InitialPage extends StatelessWidget {
       child: Scaffold(
         backgroundColor: Colors.transparent,
         body: LoginUI(),
+      ),
+    );
+  }
+}
+
+class AppLang extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    var appLanguage = Provider.of<AppLanguage>(context);
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(AppLocalizations.of(context).translate('title')),
+      ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            Text(
+              AppLocalizations.of(context).translate('Message'),
+              style: TextStyle(fontSize: 32),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                RaisedButton(
+                  onPressed: () {
+                    appLanguage.changeLanguage(Locale("en"));
+                  },
+                  child: Text('English'),
+                ),
+                RaisedButton(
+                  onPressed: () {
+                    appLanguage.changeLanguage(Locale("ar"));
+                  },
+                  child: Text('العربي'),
+                )
+              ],
+            )
+          ],
+        ),
       ),
     );
   }
