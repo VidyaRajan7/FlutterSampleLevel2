@@ -1,7 +1,10 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:hala_app_sample/common/app_constants_or_strings/strings_or_constants.dart';
+import 'package:hala_app_sample/common/widgets/nav_drawer.dart';
 import 'package:hala_app_sample/common/widgets/widgets.dart';
+import 'package:hala_app_sample/common/widgets/nav_drawer.dart';
 
 class LoginUI extends StatefulWidget {
   @override
@@ -16,6 +19,7 @@ class _LoginUIState extends State<LoginUI> {
   FocusNode passwordFocus = new FocusNode();
   bool emailError = false;
   bool passwordError = false;
+  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
@@ -29,6 +33,8 @@ class _LoginUIState extends State<LoginUI> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.transparent,
+     key: _scaffoldKey,
+     drawer: NavDrawer(),
      body: (Stack(
        children: <Widget>[
          Center(
@@ -38,7 +44,7 @@ class _LoginUIState extends State<LoginUI> {
            ),
          ),
          new Container(
-           child: CommonWidgets(title: 'Login',),
+           child: CommonWidgets(title: 'Login', imgPath: CommonImagePaths().verticalImgPath,scaffoldKey: _scaffoldKey,),
          ),
        ],
      )),
@@ -51,7 +57,7 @@ class _LoginUIState extends State<LoginUI> {
       height: 80,
     ));
     loginWidget.add(getLabelWidget('User Name'));
-    loginWidget.add(getTextFieldWidget('assets/images/icon_user.png', true));
+    loginWidget.add(getTextFieldWidget(CommonImagePaths().user, true));
     loginWidget.add(getLabelWidget('Password'));
     loginWidget.add(getTextFieldWidget('assets/images/icon_password.png', false));
     loginWidget.add(Column(
@@ -63,7 +69,7 @@ class _LoginUIState extends State<LoginUI> {
             child: Text('Create an account',
               style: TextStyle(
                   fontSize: 15, fontWeight: FontWeight.w600,
-              color: const Color(0xffF8C045)),),
+              color: ColorNames().lightYellow),),
             onTap: ()=>{},
           ),
         )
@@ -79,7 +85,7 @@ class _LoginUIState extends State<LoginUI> {
             child: Text('Login',
             style: TextStyle(color: Colors.white, fontSize: 21),
             ),
-            color: const Color(0xffF8C045),
+            color: ColorNames().lightYellow,
             onPressed: () => {},
 
           ),
