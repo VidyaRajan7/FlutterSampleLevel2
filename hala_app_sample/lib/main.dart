@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hala_app_sample/common/app_constants_or_strings/strings_or_constants.dart';
 import 'package:hala_app_sample/screens/login/view/login_ui.dart';
 //For Localizations
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -99,7 +100,7 @@ class InitialPage extends StatelessWidget {
     return Container(
       decoration: new BoxDecoration(
           image: new DecorationImage(image:
-          new AssetImage('assets/images/background.png'), fit: BoxFit.cover)
+          new AssetImage(CommonImagePaths().backgroundImage), fit: BoxFit.cover)
       ),
       child: Scaffold(
         backgroundColor: Colors.transparent,

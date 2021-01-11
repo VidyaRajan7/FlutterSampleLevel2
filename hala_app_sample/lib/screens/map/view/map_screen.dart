@@ -1,11 +1,11 @@
 import 'dart:async';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:hala_app_sample/common/app_constants_or_strings/strings_or_constants.dart';
 import 'package:hala_app_sample/common/widgets/widgets.dart';
 import 'package:hala_app_sample/localization/app_localizations.dart';
+import 'package:hala_app_sample/screens/map/view/search_list.dart';
 
 class MapSample extends StatefulWidget {
   _MapSampleState createState() => _MapSampleState();
@@ -31,32 +31,35 @@ class _MapSampleState extends State<MapSample> {
       body: Column(
         children: <Widget>[
           CommonWidgets(title: (AppLocalizations.of(context).translate('Map')),imgPath: CommonImagePaths().iconBack,),
-          Container(
-            margin: EdgeInsets.all(0),
-            height: (MediaQuery.of(context).size.height) - 100,
-            color: Colors.blue,
-            child: GoogleMap(
-              mapType: MapType.normal,
-              initialCameraPosition: _kGooglePlex,
-              onMapCreated: (GoogleMapController controller) {
-                _controller.complete(controller);
-                },
-            ),
+          Stack(
+            children: <Widget>[
+              Container(
+                margin: EdgeInsets.all(0),
+                height: (MediaQuery.of(context).size.height) - 200,
+                color: Colors.blue,
+                child: GoogleMap(
+                  mapType: MapType.normal,
+                  initialCameraPosition: _kGooglePlex,
+                  onMapCreated: (GoogleMapController controller) {
+                    _controller.complete(controller);
+                  },
+                ),
+              ),
+              SearchList(),
+              // Container(
+              //   padding: EdgeInsets.fromLTRB(0, 0, 0, 10),
+              //   height: 50,
+              //   child: SearchList(),
+              //   color: Colors.white,
+              // ),
+            ],
           )
         ],
       ),
-      //CommonWidgets(title: (AppLocalizations.of(context).translate('Map')),imgPath: CommonImagePaths().iconBack,),
-      // body: GoogleMap(
-      //   mapType: MapType.hybrid,
-      //   initialCameraPosition: _kGooglePlex,
-      //   onMapCreated: (GoogleMapController controller) {
-      //     _controller.complete(controller);
-      //   },
-      // ),
-      floatingActionButton: FloatingActionButton.extended(
-          onPressed: _goToTheLake,
-          label: Text('Home'),
-      icon: Icon(Icons.directions_boat),),
+      // floatingActionButton: FloatingActionButton.extended(
+      //     onPressed: _goToTheLake,
+      //     label: Text('Home'),
+      // icon: Icon(Icons.directions_boat),),
      );
   }
 
@@ -65,3 +68,4 @@ class _MapSampleState extends State<MapSample> {
     controller.animateCamera(CameraUpdate.newCameraPosition(_kLake));
   }
 }
+

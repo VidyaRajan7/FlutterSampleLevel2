@@ -28,6 +28,9 @@ dependencies:
   provider: ^3.1.0
   shared_preferences: ^0.5.3+4
   google_maps_flutter:
+  dio: 1.0.0
+
+
 
 
   # The following adds the Cupertino Icons font to your application.
