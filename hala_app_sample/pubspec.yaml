@@ -29,6 +29,8 @@ dependencies:
   shared_preferences: ^0.5.3+4
   google_maps_flutter:
   dio: 1.0.0
+  timelines: ^0.0.2+1
+  font_awesome_flutter:
 
 
 
