@@ -33,6 +33,7 @@ class _DropdownSampleState extends State<DropdownSample> {
   ];
   Future<File> profileImg;
   File _image;
+  final _picker = ImagePicker();
   //Dio dio = new Dio();
   //FormData formdata = new FormData();
   get textStyle => null;
@@ -95,11 +96,17 @@ class _DropdownSampleState extends State<DropdownSample> {
     return commonWidget;
   }
 
-  Future<void> getImage() async {
+  Future<void> getImage2() async {
     var image = await ImagePicker.pickImage(source: ImageSource.gallery);
-    print(image);
     setState(() {
       _image = image;
+    });
+  }
+  Future<void> getImage() async {
+    PickedFile image = await _picker.getImage(source: ImageSource.gallery);
+    final File file = File(image.path);
+    setState(() {
+      _image = file;
     });
   }
 
