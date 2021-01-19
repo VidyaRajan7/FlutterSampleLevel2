@@ -6,6 +6,9 @@ import 'package:hala_app_sample/common/app_constants_or_strings/strings_or_const
 import 'package:hala_app_sample/common/widgets/widgets.dart';
 import 'package:hala_app_sample/localization/app_localizations.dart';
 import 'package:image_picker/image_picker.dart';
+import 'dart:ffi';
+import 'dart:io';
+
 
 class DropdownSample extends StatefulWidget {
   DropdownSample({Key key}) : super(key: key);
@@ -28,7 +31,8 @@ class _DropdownSampleState extends State<DropdownSample> {
     "Movie",
     "Salary"
   ];
-  //File _image;
+  Future<File> profileImg;
+  File _image;
   //Dio dio = new Dio();
   //FormData formdata = new FormData();
   get textStyle => null;
@@ -45,11 +49,6 @@ class _DropdownSampleState extends State<DropdownSample> {
                 ),
               ),
               CommonWidgets(title: 'Common Widgets',imgPath: CommonImagePaths().iconBack,),
-              // RaisedButton(
-              //     child: Text('Select Image'),
-              //     onPressed: () {
-              //
-              //     })
             ],
           )
 
@@ -64,24 +63,44 @@ class _DropdownSampleState extends State<DropdownSample> {
     commonWidget.add(
         getDropdownWidgetForCurrency()
     );
-    // commonWidget.add(
-    //   Container(
-    //     width: MediaQuery.of(context).size.width,
-    //     child: FlatButton(
-    //       child: Icon(
-    //         Icons.camera_alt,
-    //         color: Colors.redAccent,
-    //       ),
-    //       // onPressed: () async {
-    //       //   await this._getImage();
-    //       // },
-    //       color: Colors.white,
-    //     ),
-    //     margin: EdgeInsets.only(top: 20.0),
-    //   )
-    // );
+    commonWidget.add(Container(
+      height: 300,
+      color: Colors.blue,
+      child: Center(
+        child: _image == null ? Text ('No image Selected'): Image.file(_image),
+      ),
+    ));
+    commonWidget.add(Container(
+      height: 300,
+      color: Colors.blue,
+      child: Center(
+        child: _image == null ? Text ('No image Selected'): Column(
+          children: <Widget>[
+            Container(
+              height: 100,
+              width: 100,
+              child: Image.file(_image),
+            )
+          ],
+        ),
+      ),
+    ));
+    
+    commonWidget.add(RaisedButton(
+      child: Text('Select Image From Gallery'),
+      onPressed:
+    getImage,
+    ));
 
     return commonWidget;
+  }
+
+  Future<void> getImage() async {
+    var image = await ImagePicker.pickImage(source: ImageSource.gallery);
+    print(image);
+    setState(() {
+      _image = image;
+    });
   }
 
   getDropdownWidgetForNumbers() {
@@ -143,14 +162,7 @@ class _DropdownSampleState extends State<DropdownSample> {
     );
   }
 
-  /* this is the function that handles getting the image from the device*/
-  // Future _getImage() async {
-  //   var image = await ImagePicker.pickImage(
-  //       source: ImageSource.gallery);
-  //   setState(() {
-  //     _image = image as File;
-  //   });
-  // }
+
 
   /*sample API code for image upload , Uncomment when get API
   uploadImage() {
@@ -162,8 +174,7 @@ class _DropdownSampleState extends State<DropdownSample> {
     .then((response) => print(response))
     .catchError((error) => print(error));
   }
-
-   */
+  */
 }
 
 
