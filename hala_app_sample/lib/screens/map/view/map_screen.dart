@@ -8,6 +8,7 @@ import 'package:hala_app_sample/localization/app_localizations.dart';
 import 'package:hala_app_sample/screens/map/view/search_list.dart';
 //import 'package:location/location.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:flushbar/flushbar.dart';
 
 class MapSample extends StatefulWidget {
   _MapSampleState createState() => _MapSampleState();
@@ -66,7 +67,7 @@ class _MapSampleState extends State<MapSample> {
             children: <Widget>[
               Container(
                 margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
-                height: (MediaQuery.of(context).size.height) - 200,
+                height: (MediaQuery.of(context).size.height) - 500,
                // color: Colors.blue,
                 child: GoogleMap(
                   mapType: MapType.normal,
@@ -79,8 +80,13 @@ class _MapSampleState extends State<MapSample> {
 
             ],
           ),
-
-
+          Flushbar(
+            title: 'Hello there',
+            message: 'How are you?',
+            duration: Duration(seconds: 3),
+            flushbarPosition: FlushbarPosition.BOTTOM,
+            flushbarStyle: FlushbarStyle.GROUNDED,
+          )..show(context)
         ],
       ),
       floatingActionButton: FloatingActionButton(
