@@ -15,11 +15,9 @@ class MapSample extends StatefulWidget {
 }
 
 class _MapSampleState extends State<MapSample> {
-  //LatLng _initialcameraposition = LatLng(10.022110, 76.303574);
+  _MapSampleState({Key key, this.title});
   static final CameraPosition _initialcameraposition = CameraPosition(
-    // 1
     target: LatLng(10.022110, 76.303574),
-    // 2
     zoom: 20,
   );
   CameraPosition myLocation;
@@ -27,6 +25,9 @@ class _MapSampleState extends State<MapSample> {
   Position _currentPosition;
   Geolocator geolocator = Geolocator()..forceAndroidLocationManager;
   String _currentAddress;
+  final String title;
+  bool showFlushBar = false;
+  Flushbar _flushbar = Flushbar();
 
 
   @override
@@ -57,12 +58,45 @@ class _MapSampleState extends State<MapSample> {
           if (_currentPosition != null)
             Text("LAT: ${_currentPosition.latitude}, LNG: ${_currentPosition
                 .longitude}, \n Address: ${_currentAddress}" ),
-          RaisedButton(
-              color: Colors.blue,
-              child: Text('Get Location'),
-              onPressed: () {
-                _getCurrentLocation();
-              }),
+          Row(
+            children: <Widget>[
+              Expanded(child: Padding(
+                padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
+                child: RaisedButton(
+                    color: Colors.blue,
+                    child: Text('Get Location'),
+                    onPressed: () {
+                      _getCurrentLocation();
+                    }),
+              )
+              ),
+              Expanded(
+                  child: Padding(
+                    padding: EdgeInsets.fromLTRB(0, 0, 20, 0),
+                      child: RaisedButton(
+                        color: Colors.blue,
+                        child: Text('Bottom Sheet'),
+                        onPressed: () {
+                          displayBottomSheet(context);
+                      }),
+                )
+              ), Expanded(
+                  child: Padding(
+                    padding: EdgeInsets.fromLTRB(0, 0, 20, 0),
+                    child: RaisedButton(
+                        color: Colors.blue,
+                        child: Text('Flush Bar'),
+                        onPressed: () {
+                          setState(() {
+                            showFlushBar = !showFlushBar ;
+                          });
+                        }),
+                  )
+              )
+            ],
+          ),
+
+
           Stack(
             children: <Widget>[
               Container(
@@ -80,13 +114,14 @@ class _MapSampleState extends State<MapSample> {
 
             ],
           ),
-          Flushbar(
+          showFlushBar == true ?
+          (_flushbar = Flushbar(
             title: 'Hello there',
             message: 'How are you?',
             duration: Duration(seconds: 3),
             flushbarPosition: FlushbarPosition.BOTTOM,
             flushbarStyle: FlushbarStyle.GROUNDED,
-          )..show(context)
+          )..show(context))  : removeFlushbar(_flushbar)
         ],
       ),
       floatingActionButton: FloatingActionButton(
@@ -133,6 +168,14 @@ class _MapSampleState extends State<MapSample> {
     }
   }
 
+  Container removeFlushbar(Flushbar flushbar) {
+    flushbar.dismiss();
+    setState(() {
+      showFlushBar = false;
+    });
+    return Container(
+    );
+  }
 
   // void _onMapCreated(GoogleMapController _cntlr)
   // {
@@ -148,6 +191,54 @@ class _MapSampleState extends State<MapSample> {
 
   void _onMapCreated(GoogleMapController controller) {
     mapController = controller;
+  }
+
+  void displayBottomSheet(BuildContext context) {
+    showModalBottomSheet(
+        context: context,
+        builder: (ctx) {
+          return Container(
+            height: MediaQuery.of(context).size.height  * 0.15,
+            child: Column(
+              children: <Widget>[
+                Row(
+                  children: <Widget>[
+                    Expanded(
+                        child: Padding(
+                          padding: EdgeInsets.fromLTRB(20, 0, 30, 0),
+                          child: Column(
+                            children: <Widget>[
+                              Text('Abi Dhar',
+                                textAlign: TextAlign.left,),
+                              Text('Al Hanafi, Riyadh',
+                                style: TextStyle(
+                                    fontSize: 10
+                                ),)
+                            ],
+                          ),
+                        )),
+                    Expanded(
+                        child: Padding(
+                          padding: EdgeInsets.fromLTRB(0, 0, 20, 0),
+                          child: RaisedButton(
+                              child: Text('Change Location'),
+                              onPressed: null),
+                        ))
+
+
+                  ],
+                ),
+                RaisedButton(
+                    child: Text('Proceed',
+                    style: TextStyle(
+                      color: Colors.white
+                    ),),
+                    color: Colors.black,
+                    onPressed: null)
+              ],
+            )
+          );
+        });
   }
 
   // Future<void> _goToTheLake() async {
