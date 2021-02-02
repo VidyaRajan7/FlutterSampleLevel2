@@ -44,21 +44,17 @@ class _ImageCompressionSampleState extends State<ImageCompressionSample> {
               child: _image == null ? Text ('No image Selected'): Image.file(_image),
             ),
           ),
-          Container(
-              margin: EdgeInsets.fromLTRB(0, 20, 0, 0),
-              child: RaisedButton(
-                child: Text(
-                'Compress Image'
-              ),
-              onPressed: () {
-                compressImage('assets/images/flower.jpeg');
-              },
-            )
-          ),
           RaisedButton(
             child: Text('Select Image From Gallery'),
-            onPressed:
-            getImage,
+            onPressed:() {
+              getImage(ImageSource.gallery);
+            },
+          ),
+          RaisedButton(
+            child: Text('Select Image From Camera'),
+            onPressed:() {
+              getImage(ImageSource.camera);
+            },
           )
         ],
     )
@@ -67,13 +63,10 @@ class _ImageCompressionSampleState extends State<ImageCompressionSample> {
   }
 
   /// Compress Image
-   void compressImage(String file) async {
-    print('vidya');
-  //void compressImage(File file) async {
+  void compressImage(File file) async {
     // Get file path
     // eg:- "Volume/VM/abcd.jpeg"
-    //final filePath = file.relativePath;
-     final filePath = file;
+    final filePath = file.absolute.path;
 
     // Create output file path
     // eg:- "Volume/VM/abcd_out.jpeg"
@@ -86,18 +79,21 @@ class _ImageCompressionSampleState extends State<ImageCompressionSample> {
         outPath,
         minWidth: 1000,
         minHeight: 1000,
-        quality: 70);
-     print('vidya2');
-    print(compressedImage);
+        quality: 35);
+    final File compressedFile = File(compressedImage.path);
+    setState(() {
+      _image = compressedFile;
+    });
   }
 
   //get image from gallery and compress image
-  Future<void> getImage() async {
-    PickedFile image = await _picker.getImage(source: ImageSource.gallery,
+  Future getImage(ImageSource source) async {
+    PickedFile image = await _picker.getImage(source: source,
         imageQuality: 50); // imageQuality for compress/ optimize image
     final File file = File(image.path);
-    setState(() {
-      _image = file;
-    });
+    compressImage(file);
+    // setState(() {
+    //   _image = file;
+    // });
   }
 }
