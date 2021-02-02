@@ -18,7 +18,7 @@ class CommonWidgets extends StatelessWidget {
     // TODO: implement build
     return Container(
       margin: EdgeInsets.fromLTRB(15, 30, 15, 0),
-      width: (MediaQuery.of(context).size.width) - 20,
+      width: (MediaQuery.of(context).size.width) - 30,
       height: 60,
       color: Colors.white,
       child: Row(
@@ -35,7 +35,7 @@ class CommonWidgets extends StatelessWidget {
           
           Center(
             child: Container(
-              width: 300,
+              width: (MediaQuery.of(context).size.width - 80),
               child: Text(this.title,
               style: TextStyle(
                 fontSize: 25,

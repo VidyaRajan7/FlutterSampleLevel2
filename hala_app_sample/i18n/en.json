@@ -5,5 +5,9 @@
   "DrawerHeader": "Drawer Header",
   "Home": "Home",
   "HalaApp": "Hala App",
-  "Map": "Map"
+  "Map": "Map",
+  "TimeLine": "TimeLine",
+  "DropdownSample": "DropdownSample",
+  "CommonWidgets": "Common Widgets",
+  "ImagePickerSample": "Image Picker Sample"
 }
