@@ -44,18 +44,21 @@ class _ImageCompressionSampleState extends State<ImageCompressionSample> {
               child: _image == null ? Text ('No image Selected'): Image.file(_image),
             ),
           ),
-          RaisedButton(
-            child: Text('Select Image From Gallery'),
-            onPressed:() {
-              getImage(ImageSource.gallery);
-            },
+          Padding(
+              padding: EdgeInsets.fromLTRB(0, 20, 0, 0),
+              child: RaisedButton(
+                child: Text('Select Image From Gallery'),
+                  onPressed:() {
+                    getImage(ImageSource.gallery);
+                  },
+              ),
           ),
           RaisedButton(
             child: Text('Select Image From Camera'),
             onPressed:() {
               getImage(ImageSource.camera);
             },
-          )
+          ),
         ],
     )
     )
