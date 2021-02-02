@@ -9,6 +9,7 @@ import 'package:hala_app_sample/screens/map/view/search_list.dart';
 //import 'package:location/location.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:flushbar/flushbar.dart';
+import 'package:hala_app_sample/screens/payment_status/view/timeline_sample.dart';
 
 class MapSample extends StatefulWidget {
   _MapSampleState createState() => _MapSampleState();
@@ -195,9 +196,16 @@ class _MapSampleState extends State<MapSample> {
 
   void displayBottomSheet(BuildContext context) {
     showModalBottomSheet(
+      backgroundColor: Colors.transparent,
         context: context,
         builder: (ctx) {
           return Container(
+            decoration: BoxDecoration(
+              shape: BoxShape.rectangle,
+              color: Colors.white,
+              borderRadius: BorderRadius.all(Radius.circular(10)),
+            ),
+            margin: EdgeInsets.fromLTRB(20, 0, 20, 20),
             height: MediaQuery.of(context).size.height  * 0.15,
             child: Column(
               children: <Widget>[
@@ -205,42 +213,68 @@ class _MapSampleState extends State<MapSample> {
                   children: <Widget>[
                     Expanded(
                         child: Padding(
-                          padding: EdgeInsets.fromLTRB(20, 0, 30, 0),
+                          padding: EdgeInsets.fromLTRB(20, 20, 30, 0),
                           child: Column(
                             children: <Widget>[
-                              Text('Abi Dhar',
-                                textAlign: TextAlign.left,),
-                              Text('Al Hanafi, Riyadh',
-                                style: TextStyle(
-                                    fontSize: 10
-                                ),)
+                              Container(
+                                width: (MediaQuery.of(context).size.width) * 0.3,
+                                child: Text('Abi Dhar',
+                                  textAlign: TextAlign.left,),
+                              ),
+                              Container(
+                                width: (MediaQuery.of(context).size.width) * 0.3,
+                                child: Text('Al Hanafi, Riyadh',
+                                  style: TextStyle(
+                                      fontSize: 10
+                                  ),),
+                              )
+
                             ],
                           ),
                         )),
                     Expanded(
                         child: Padding(
-                          padding: EdgeInsets.fromLTRB(0, 0, 20, 0),
+                          padding: EdgeInsets.fromLTRB(0, 10, 20, 0),
                           child: RaisedButton(
+                            color: Colors.white,
+                              shape: RoundedRectangleBorder(
+                                side: BorderSide(width: 0.1),
+                                borderRadius: BorderRadius.all(Radius.circular(10)),
+                              ),
                               child: Text('Change Location'),
-                              onPressed: null),
+                              onPressed: () {
+                              print("Change Location");
+                              }),
                         ))
 
 
                   ],
                 ),
-                RaisedButton(
-                    child: Text('Proceed',
-                    style: TextStyle(
-                      color: Colors.white
-                    ),),
+                Container(
+                  margin: EdgeInsets.fromLTRB(0, 10, 0, 0),
+                  width: (MediaQuery.of(context).size.width) - 80,
+                  child: RaisedButton(
                     color: Colors.black,
-                    onPressed: null)
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(8))
+                    ),
+                      child: Text('Proceed',
+                        style: TextStyle(
+                            color: Colors.white
+                        ),),
+                      onPressed: () {
+                        gotoHome();
+                      }),
+                )
               ],
             )
           );
         });
   }
-
+  gotoHome() {
+    Navigator.pop(context);
+    Navigator.push(context, MaterialPageRoute(builder: (context) => TimelineSample()));
+  }
   // Future<void> _goToTheLake() async {
   //   final GoogleMapController controller = await _controller.future;
   //   controller.animateCamera(CameraUpdate.newCameraPosition(_kLake));
