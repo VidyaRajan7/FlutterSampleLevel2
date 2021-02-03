@@ -8,6 +8,7 @@ class CommonImagePaths {
   String menuHeaderBg = 'assets/images/menu_header_image.jpg';
   String user = 'assets/images/icon_user.png';
   String profile = 'assets/images/icon_password.png';
+  String dummyImage = 'assets/images/dummy_image.png';
 }
 
 class ColorNames {

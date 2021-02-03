@@ -44,6 +44,34 @@ class _ImageCompressionSampleState extends State<ImageCompressionSample> {
               child: _image == null ? Text ('No image Selected'): Image.file(_image),
             ),
           ),
+          Container(
+              decoration: BoxDecoration(
+                  //shape: BoxShape.rectangle,
+                  borderRadius: BorderRadius.all(Radius.circular(10)),
+                  color: Colors.red
+              ),
+            margin: EdgeInsets.fromLTRB(0, 20, 0, 0),
+            height: 100,
+            width: 100,
+            child: Stack(
+              children: <Widget>[
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(8),
+                  child: _image == null ? Image.asset(CommonImagePaths().dummyImage, fit: BoxFit.fill,) : Image.file(_image),
+                ),
+                Positioned(
+                    top: -10,
+                    right: -10,
+                    child: IconButton(
+                      icon: Icon(Icons.close_rounded),
+                      onPressed: () {
+                        print('close2');
+                      },
+                    )
+                ),
+              ],
+            )
+          ),
           Padding(
               padding: EdgeInsets.fromLTRB(0, 20, 0, 0),
               child: RaisedButton(
@@ -73,7 +101,10 @@ class _ImageCompressionSampleState extends State<ImageCompressionSample> {
 
     // Create output file path
     // eg:- "Volume/VM/abcd_out.jpeg"
+    print('vidya');
+
     final lastIndex = filePath.lastIndexOf(new RegExp(r'.jp'));
+    print(lastIndex);
     final splitted = filePath.substring(0, (lastIndex));
 
     final outPath = "${splitted}_out${filePath.substring(lastIndex)}";
@@ -82,7 +113,7 @@ class _ImageCompressionSampleState extends State<ImageCompressionSample> {
         outPath,
         minWidth: 1000,
         minHeight: 1000,
-        quality: 35);
+        quality: 35); // by reducing qualiy, image size will reduce
     final File compressedFile = File(compressedImage.path);
     setState(() {
       _image = compressedFile;
@@ -95,8 +126,5 @@ class _ImageCompressionSampleState extends State<ImageCompressionSample> {
         imageQuality: 50); // imageQuality for compress/ optimize image
     final File file = File(image.path);
     compressImage(file);
-    // setState(() {
-    //   _image = file;
-    // });
   }
 }
