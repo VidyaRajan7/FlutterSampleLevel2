@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:hala_app_sample/common/app_constants_or_strings/strings_or_constants.dart';
 import 'package:hala_app_sample/localization/app_localizations.dart';
 import 'package:hala_app_sample/screens/common_widgets/common_widgets_view/common_widgets_view.dart';
+import 'package:hala_app_sample/screens/lottie_animations/view/lottie_animation_sample.dart';
 import 'package:hala_app_sample/screens/image_compression/view/image_compression_sample.dart';
 import 'package:hala_app_sample/screens/map/view/map_screen.dart';
 import 'package:hala_app_sample/screens/payment_status/view/timeline_sample.dart';
@@ -57,6 +58,12 @@ class NavDrawer extends StatelessWidget {
               },
             ),
             ListTile(
+              title: Text(AppLocalizations.of(context).translate('LottieAnimationSample')),
+              onTap: () => {
+                loadScreen(context, 'LottieAnimationSample')
+              },
+            ),
+            ListTile(
               title: Text(AppLocalizations.of(context).translate('ImageCompression')),
               onTap: () => {
                 loadScreen(context, 'ImageCompression')
@@ -76,6 +83,8 @@ class NavDrawer extends StatelessWidget {
       Navigator.push(context, MaterialPageRoute(builder: (context) => TimelineSample()));
     } else if (title == 'DropdownSample') {
       Navigator.push(context, MaterialPageRoute(builder: (context) => DropdownSample()));
+    } else if (title == 'LottieAnimationSample') {
+      Navigator.push(context, MaterialPageRoute(builder: (context) => LottieAnimationSample()));
     }  else if (title == 'ImageCompression') {
       Navigator.push(context, MaterialPageRoute(builder: (context) => ImageCompressionSample()));
     }
