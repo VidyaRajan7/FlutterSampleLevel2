@@ -65,6 +65,14 @@ class _LottieAnimationSampleState extends State<LottieAnimationSample> {
                 child: Lottie.asset('assets/lottie_json/fast-slow-loading.json'),
               ),
             ),
+            Container( // load lottie animation from zip file
+              padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
+              child: SizedBox(
+                width: (MediaQuery.of(context).size.width),
+                height: (MediaQuery.of(context).size.height) * 0.20,
+                child: Lottie.asset('assets/lottie_json/mycar.json'),
+              ),
+            ),
           ],
        ),
       ),
