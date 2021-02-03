@@ -102,9 +102,14 @@ class _DropdownSampleState extends State<DropdownSample> {
       _image = image;
     });
   }
+
+  //get image from gallery and compress image
   Future<void> getImage() async {
-    PickedFile image = await _picker.getImage(source: ImageSource.gallery);
+    PickedFile image = await _picker.getImage(source: ImageSource.gallery,
+    imageQuality: 2); // imageQuality for compress/ optimize image
     final File file = File(image.path);
+    var enc = await file.readAsBytes();
+    print(enc.length);
     setState(() {
       _image = file;
     });
